@@ -1,6 +1,5 @@
 #include <iostream>
 #include <stack>
-#include <vector>
 
 struct Top
 {
@@ -10,46 +9,34 @@ struct Top
 
 int main()
 {
-	int N = 0;
+    std::ios_base::sync_with_stdio(0); std::cin.tie(0); std::cout.tie(0);
+    
+    int N = 0;
 	std::cin >> N;
 	
 	std::stack<Top> Stack;
-	for (int i = 0; i < N; i++)
+	for (int i = 1; i <= N; i++)
 	{
 		int H = 0;
 		std::cin >> H;
 
-		Top NewTop(H, i);
-		Stack.push(NewTop);
-	}
-
-	std::vector<int> Result(N, 0);
-	std::stack<Top> Temp;
-	while (false == Stack.empty())
-	{
-		if (true == Temp.empty())
+		while (false == Stack.empty())
 		{
-			Temp.push(Stack.top());
+			if (H < Stack.top().Height)
+			{
+				std::cout << Stack.top().Idx << " ";
+				break;
+			}
+		
 			Stack.pop();
 		}
-		else
-		{
-			if (Stack.top().Height > Temp.top().Height)
-			{
-				Result[Temp.top().Idx] = static_cast<int>(Stack.size());
-				Temp.pop();
-			}
-			else
-			{
-				Temp.push(Stack.top());
-				Stack.pop();
-			}
-		}
-	}
 
-	for (size_t i = 0; i < Result.size(); i++)
-	{
-		std::cout << Result[i] << " ";
+		if (true == Stack.empty())
+		{
+			std::cout << "0 ";
+		}
+
+		Stack.push(Top(H, i));
 	}
     
     return 0;
