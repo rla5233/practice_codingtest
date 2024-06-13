@@ -1,24 +1,25 @@
 #include <iostream>
-#include <vector>
+using namespace std;
+
+int A, B, C;
+int num[10];
 
 int main()
 {
-	int A = 0, B = 0, C = 0;
-	std::cin >> A >> B >> C;
+	cin >> A >> B >> C;
 
-	int Mul = A * B * C;
-	std::vector<int> NumVec(10, 0);
-	while (0 != Mul)
+	int Data = A * B * C;
+
+	while (Data != 0)
 	{
-		int Number = Mul % 10;
-		++NumVec[Number];
-		Mul /= 10;
+		int inum = Data % 10;
+		Data /= 10;
+
+		num[inum]++;
 	}
 
-	for (size_t i = 0; i < NumVec.size(); i++)
+	for (int a : num)
 	{
-		std::cout << NumVec[i] << std::endl;
+		cout << a << "\n";
 	}
-    
-    return 0;
 }
