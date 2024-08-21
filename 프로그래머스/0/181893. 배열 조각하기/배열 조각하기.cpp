@@ -7,24 +7,13 @@ std::vector<int> solution(std::vector<int> Arr, std::vector<int> Query)
 
     for (int i = 0; i < Query.size(); ++i)
     {
-        std::vector<int> Temp;
         if (0 == i % 2)
         {
-            for (int j = 0; j <= Query[i]; ++j)
-            {
-                Temp.push_back(Result[j]);
-            }
-
-            Result.swap(Temp);
+            Result = std::vector(Result.begin(), Result.begin() + Query[i] + 1);            
         }
         else
         {
-            for (int j = Query[i]; j < Result.size(); ++j)
-            {
-                Temp.push_back(Result[j]);
-            }
-
-            Result.swap(Temp);
+            Result = std::vector(Result.begin() + Query[i], Result.end());     
         }
     }
 
