@@ -17,33 +17,9 @@ std::vector<std::vector<int>> solution(int N)
         int NextX = x + dx[DirIndex];
         int NextY = y + dy[DirIndex];
 
-        switch (DirIndex)
+        if (NextX < 0 || NextX >= Answer[y].size() ||  NextY < 0 || NextY >= Answer.size() || -1 != Answer[NextY][NextX])
         {
-        case 0:
-            
-            if (NextX >= Answer[y].size() || -1 != Answer[y][NextX])
-            {
-                DirIndex = ++DirIndex % 4;
-            }
-            break;
-        case 1:
-            if (NextY >= Answer.size() || -1 != Answer[NextY][x])
-            {
-                DirIndex = ++DirIndex % 4;
-            }
-            break;
-        case 2:
-            if (NextX < 0 || -1 != Answer[y][NextX])
-            {
-                DirIndex = ++DirIndex % 4;
-            }
-            break;
-        case 3:
-            if (NextY < 0 || -1 != Answer[NextY][x])
-            {
-                DirIndex = ++DirIndex % 4;
-            }
-            break;
+            DirIndex = ++DirIndex % 4;
         }
 
         x += dx[DirIndex];
