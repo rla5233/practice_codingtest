@@ -1,12 +1,13 @@
 #include <string>
-#include <vector>
 
-int solution(int balls, int share) {
-    long result = 1;
-
-    for (int i = 1; i <= share; i++) {
-        result *= (balls -i + 1);
-        result /= i;
+int solution(int Balls, int Share) 
+{
+    long long Result = 1;
+    for (int i = 0; i < Share; ++i)
+    {
+        Result *= Balls - i;
+        Result /= 1 + i;
     }
-    return result;
+
+    return Result;
 }
