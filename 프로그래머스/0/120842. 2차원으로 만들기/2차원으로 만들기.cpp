@@ -1,13 +1,20 @@
 #include <string>
 #include <vector>
 
-std::vector<std::vector<int>> solution(std::vector<int> NumList, int N) 
-{
-    std::vector<std::vector<int>> Result;
-    for (int i = 0; i < static_cast<int>(NumList.size()); i += N)
-    {
-        Result.push_back({ NumList.begin() + i, NumList.begin() + i + N });
-    }
+using namespace std;
 
-    return Result;
+vector<vector<int>> solution(vector<int> num_list, int n) {
+
+    int r = num_list.size()/n;
+    vector<vector<int>> answer(r,vector<int>(n));
+
+    int ind = 0;
+    for(int i =0; i < r; ++i)
+    {
+        for(int j = 0; j < n; ++j)
+        {
+            answer[i][j] = num_list[ind++];
+        }
+    }
+    return answer;
 }
