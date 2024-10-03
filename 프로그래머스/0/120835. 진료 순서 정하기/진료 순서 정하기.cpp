@@ -1,23 +1,24 @@
 #include <vector>
-#include <unordered_map>
-#include <algorithm>
+#include <map>
 
 std::vector<int> solution(std::vector<int> Emergency) 
 {
-    std::vector<int> Temp = Emergency;
-    std::sort(Temp.rbegin(), Temp.rend());
-
-    std::unordered_map<int, int> Sort;
-    for (int i = 0; i < static_cast<int>(Temp.size()); ++i)
+    std::map<int, int> Sort;
+    for (int E : Emergency)
     {
-        Sort[Temp[i]] = i + 1;
-    }
-    
-    std::vector<int> Result;
-    for (int i = 0; i < static_cast<int>(Emergency.size()); ++i)
-    {
-        Result.push_back(Sort[Emergency[i]]);
+        Sort[E] = 0;
     }
 
-    return Result;
+    int Order = static_cast<int>(Sort.size());
+    for (std::pair<const int, int>& E : Sort)
+    {
+        E.second = Order--;
+    }
+
+    for (int& E : Emergency)
+    {
+        E = Sort[E];
+    }
+
+    return Emergency;
 }
