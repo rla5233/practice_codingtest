@@ -1,23 +1,19 @@
+#include <unordered_map>
+#include <unordered_set>
 #include <sstream>
 #include <string>
 #include <vector>
-#include <map>
-#include <set>
 
 std::vector<int> solution(std::vector<std::string> ID_List, std::vector<std::string> Report, int K) 
 {
-    std::map<std::string, std::set<std::string>> ReportInfo;
-    std::map<std::string, int> ReportCount;
+    std::unordered_map<std::string, std::unordered_set<std::string>> ReportInfo;
+    std::unordered_map<std::string, int> ReportCount;
     for (const std::string& Info : Report)
     {
         std::string ID = "", RepID = "";
         std::stringstream SS(Info);
         SS >> ID >> RepID;
-
-        if (ReportInfo[ID].insert(RepID).second)
-        {
-            ++ReportCount[RepID];
-        }
+        ReportCount[RepID] += ReportInfo[ID].insert(RepID).second;
     }
 
     std::vector<int> Result;
@@ -28,10 +24,7 @@ std::vector<int> solution(std::vector<std::string> ID_List, std::vector<std::str
         {
             for (const std::string& Info : ReportInfo[ID])
             {
-                if (K <= ReportCount[Info])
-                {
-                    ++MailCount;
-                }
+                MailCount += (K <= ReportCount[Info]);
             }
         }
 
