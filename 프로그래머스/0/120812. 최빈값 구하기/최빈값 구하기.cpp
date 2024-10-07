@@ -1,20 +1,27 @@
 #include <unordered_map>
 #include <vector>
-#include <map>
 
 int solution(std::vector<int> Array) 
 {
     std::unordered_map<int, int> NumCount;
-    std::multimap<int, int> Mode;
     for (int Num : Array)
     {
         ++NumCount[Num];
     }
     
-    for (const std::pair<int, int>& Num : NumCount)
+    int Result = 0, Max = 0;
+    for (const std::pair<int, int>& Pair : NumCount)
     {
-        Mode.insert({ Num.second, Num.first });
+        if (Pair.second > Max)
+        {
+            Max = Pair.second;
+            Result = Pair.first;
+        }
+        else if (Pair.second == Max)
+        {
+            Result = -1;
+        }
     }
 
-    return 1 == Mode.count(Mode.rbegin()->first) ? Mode.rbegin()->second : -1;
+    return Result;
 }
