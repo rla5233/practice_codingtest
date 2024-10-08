@@ -10,7 +10,7 @@ int main()
     std::cin >> PL;
 
     char Prev = ' ';
-    int TotalScore = 0, CurScore = 1, Div = 1;
+    int TotalScore = 0, Temp = 1, Div = 1;
     std::stack<char> S;
     for (char C : PL)
     {
@@ -18,12 +18,12 @@ int main()
         {
             if (']' == Prev || ')' == Prev)
             {
-                TotalScore += CurScore;
-                ']' == Prev ? CurScore /= Div : CurScore /= Div;
+                TotalScore += Temp;
+                ']' == Prev ? Temp /= Div : Temp /= Div;
                 Div = 1;
             }
             
-            '[' == C ? CurScore *= 3 : CurScore *= 2;
+            '[' == C ? Temp *= 3 : Temp *= 2;
 
             Prev = C;
             S.push(C);
@@ -44,14 +44,14 @@ int main()
 
             if (S.empty())
             {
-                TotalScore += CurScore;
-                CurScore = 1;
+                TotalScore += Temp;
+                Temp = 1;
                 Prev = ' ';
                 Div = 1;
             }
         }
     }
-    
+
     if (!S.empty())
     {
         TotalScore = 0;
