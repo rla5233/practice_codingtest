@@ -16,57 +16,31 @@ int main()
         int Num = 0;
         std::cin >> Num;
 
+        while (!S.empty() && S.top().first < Num)
+        {
+            Result += S.top().second;
+            S.pop();
+        }
+
         if (S.empty())
         {
             S.push({ Num, 1 });
+            continue;
         }
-        else
-        {
-            if (S.top().first > Num)
-            {
-                ++Result;
-                S.push({ Num, 1 });
-            }
-            else if (S.top().first == Num)
-            {
-                Result += S.top().second;
-                if (2 <= S.size())
-                {
-                    ++Result;
-                }
-                ++S.top().second;
-            }
-            else
-            {
-                while (!S.empty() && S.top().first < Num)
-                {
-                    Result += S.top().second;
-                    S.pop();
-                }
 
-                if (S.empty())
-                {
-                    S.push({ Num, 1 });
-                }
-                else if (S.top().first == Num)
-                {
-                    Result += S.top().second;
-                    if (2 <= S.size())
-                    {
-                        ++Result;
-                    }
-                    ++S.top().second;
-                }
-                else
-                {
-                    ++Result;
-                    S.push({ Num, 1 });
-                }
-            }
+        if (S.top().first > Num)
+        {
+            ++Result;
+            S.push({ Num, 1 });
+        }
+        else // S.top().first == Num
+        {
+            Result += S.top().second;
+            if (2 <= S.size()) { ++Result; }
+            ++S.top().second;
         }
     }
 
     std::cout << Result;
-
     return 0;
 }
