@@ -1,42 +1,35 @@
+#include <sstream>
 #include <string>
 #include <cmath>
 
 int solution(std::string DartResult) 
 {
-    int Result = 0, Prev = 0, Cur = 0;
-    for (int i = 0; i < DartResult.size(); ++i)
+    int Result = 0;
+    int Prev = 0, Cur = 0;
+    std::stringstream SS(DartResult);
+    for (int i = 0; i < 3; ++i)
     {
-        if (isdigit(DartResult[i]))
-        {
-            if (isdigit(DartResult[i + 1])) 
-                Cur = std::stoi(DartResult.substr(i++, 2));
-            else 
-                Cur = DartResult[i] - '0';
-            continue;
-        }
+        char Pow, Opt;
 
-        if (isalpha(DartResult[i]))
-        {
-            if ('D' == DartResult[i])
-                Cur = pow(Cur, 2);
-            else if ('T' == DartResult[i])
-                Cur = pow(Cur, 3);
+        SS >> Cur;
+        Pow = SS.get(); 
+        Opt = SS.get();
+        
+        if ('D' == Pow) 
+            Cur = pow(Cur, 2);
+        else if ('T' == Pow) 
+            Cur = pow(Cur, 3);
 
-            if (i + 1 < DartResult.size() && '#' == DartResult[i + 1])
-            {
-                Cur *= -1;
-                ++i;
-            }
-            else if (i + 1 < DartResult.size() && '*' == DartResult[i + 1])
-            {
-                Prev <<= 1, Cur <<= 1;
-                ++i;
-            }
+        if ('*' != Opt && '#' != Opt)
+            SS.unget();
+        else if ('*' == Opt)
+            Prev <<= 1, Cur <<= 1;
+        else if ('#' == Opt)
+            Cur *= -1;
 
-            Result += Prev;
-            Prev = Cur;
-            Cur = 0;
-        }
+        Result += Prev;
+        Prev = Cur;
+        Cur = 0;
     }
 
     Result += Prev;
