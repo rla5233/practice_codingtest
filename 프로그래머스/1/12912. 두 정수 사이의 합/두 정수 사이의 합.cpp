@@ -1,19 +1,6 @@
 #include <string>
 
-long long solution(int A, int B) 
+long long solution(int a, int b) 
 {
-    long long Result = 0;
-    
-    if (A <= B)
-    {
-        for (int i = A; i <= B; ++i)
-            Result += i;
-    }
-    else
-    {
-        for (int i = B; i <= A; ++i)
-            Result += i;
-    }
-
-    return Result;
+    return static_cast<long long>(a + b) * (abs(a - b) + 1) / 2;
 }
