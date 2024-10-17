@@ -1,34 +1,45 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
-#include <unordered_map>
 
 int main()
 {
     std::ios_base::sync_with_stdio(0); 
     std::cin.tie(0); std::cout.tie(0);
     
-    int N = 0;
-    std::cin >> N;
+    int N = 0; std::cin >> N;
 
-    std::unordered_map<int, int> Mem;
-    std::vector<int> Num, Temp;
-    while (N--)
+    std::vector<std::pair<int, int>> Num;
+    
+    for (int i = 0; i < N; ++i)
     {
-        int X = 0;
-        std::cin >> X;
-        Num.push_back(X);
-
-        if (Mem.insert({ X, 0 }).second)
-            Temp.push_back(X);
+        int X = 0; std::cin >> X;
+        Num.push_back({ X, i });
     }
 
-    std::sort(Temp.begin(), Temp.end());
-    for (int i = 0; i < Temp.size(); ++i)
-        Mem[Temp[i]] = i;
+    std::sort(Num.begin(), Num.end());
+    
+    int Prev = Num[0].first;
+    Num[0].first = 0;
+    for (int i = 1; i < Num.size(); ++i)
+    {
+        int Cur = Num[i].first;
+        if (Prev != Cur)
+            Num[i].first = Num[i - 1].first + 1;
+        else
+            Num[i].first = Num[i - 1].first;
+        
+        Prev = Cur;
+    }
 
-    for (int N : Num)
-        std::cout << Mem[N] << " ";
+    std::sort(Num.begin(), Num.end(), [&](const std::pair<int, int>& A, const std::pair<int, int>& B)
+        {
+            return A.second < B.second;
+        }
+    );
+
+    for (const auto& Pair : Num)
+        std::cout << Pair.first << " ";
 
     return 0;
 }
