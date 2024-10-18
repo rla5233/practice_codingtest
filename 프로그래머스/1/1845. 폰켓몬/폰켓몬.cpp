@@ -3,9 +3,6 @@
 
 int solution(std::vector<int> Nums)
 {
-    std::unordered_set<int> S;
-    for (int Num : Nums)
-        S.insert(Num);
-
-    return S.size() > Nums.size() / 2 ? Nums.size() / 2 : S.size();
+    std::unordered_set<int> S(Nums.begin(), Nums.end());
+    return std::min(S.size(), Nums.size() / 2);
 }
