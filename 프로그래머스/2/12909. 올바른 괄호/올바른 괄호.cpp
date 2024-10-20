@@ -10,12 +10,12 @@ bool solution(std::string S)
             Stack.push(C);
         else
         {
-            if (Stack.empty() || '(' != Stack.top())
+            if (Stack.empty())
                 return false;
             else
                 Stack.pop();
         }
     }
 
-    return Stack.empty() ? true : false;
+    return Stack.empty();
 }
