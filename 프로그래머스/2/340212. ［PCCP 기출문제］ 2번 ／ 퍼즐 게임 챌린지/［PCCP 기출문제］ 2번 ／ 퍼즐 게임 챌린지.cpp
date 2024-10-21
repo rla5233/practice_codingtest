@@ -5,17 +5,19 @@ int solution(std::vector<int> Diffs, std::vector<int> Times, long long Limit)
     int Min = 1, Max = 100000;
     while (Min <= Max)
     {
-        size_t CurTime = 0;
+        size_t TotalTime = 0;
         int Mid = (Min + Max) / 2;
         for (int i = 0; i < static_cast<int>(Diffs.size()); ++i)
         {
-            if (Mid >= Diffs[i])
-                CurTime += Times[i];
-            else
-                CurTime += (Times[i] + Times[i - 1]) * (Diffs[i] - Mid) + Times[i];
+            TotalTime += Times[i];
+            if (Mid < Diffs[i])
+                TotalTime += (Times[i] + Times[i - 1]) * (Diffs[i] - Mid);
+
+            if (TotalTime > Limit)
+                break;
         }
 
-        if (CurTime <= Limit)
+        if (TotalTime <= Limit)
             Max = Mid - 1;
         else
             Min = Mid + 1;
