@@ -8,12 +8,10 @@ int main()
     std::cin.tie(0); std::cout.tie(0);
 
     int N = 0; std::cin >> N;
-    std::vector<int> v;
-    while (N--)
-    {
-        int Num = 0; std::cin >> Num;
-        v.push_back(Num);
-    }
+    std::vector<int> v(N, 0);
+
+    for (int i = 0; i < N; ++i)
+        std::cin >> v[i];
     
     std::sort(v.begin(), v.end());
     int M = 0; std::cin >> M;
