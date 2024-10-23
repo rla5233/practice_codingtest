@@ -2,41 +2,34 @@
 
 int solution(int X, int Y, int N) 
 {
-    if (X == Y)
-        return 0;
-    
     std::unordered_set<int> Nums;
-    Nums.insert(X);
+    Nums.insert(Y);
 
     int Result = 0;
     while (!Nums.empty())
     {
-        ++Result;
-
-        int Next = 0;
         std::unordered_set<int> Temp;
+        
+        int Next = 0;
         for (int Num : Nums)
         {
-            Next = Num + N;
-            if (Y > Next)
-                Temp.insert(Next);
-            else if (Y == Next)
+            if (X > Num)
+                continue;
+
+            if (X == Num)
                 return Result;
 
-            Next = Num << 1;
-            if (Y > Next)
-                Temp.insert(Next);
-            else if (Y == Next)
-                return Result;
+            Temp.insert(Num - N);
 
-            Next = 3 * Num;
-            if (Y > Next)
-                Temp.insert(Next);
-            else if (Y == Next)
-                return Result;
+            if (!(Num & 1))
+                Temp.insert(Num >> 1);
+
+            if (0 == Num % 3)
+                Temp.insert(Num / 3);
         }
 
         Nums.swap(Temp);
+        ++Result;
     }
 
     return -1;
