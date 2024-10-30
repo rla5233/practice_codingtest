@@ -4,66 +4,49 @@
 
 using namespace std;
 
+bool WinCheck(const vector<string>& Board, char Player)
+{
+    // 가로, 세로
+    for (int i = 0; i < Board.size(); ++i)
+    {
+        if (Board[i][0] == Player && Board[i][1] == Player && Board[i][2] == Player)
+            return true;
+        if (Board[0][i] == Player && Board[1][i] == Player && Board[2][i] == Player)
+            return true;
+    }
+
+    // 대각선
+    if (Board[0][0] == Player && Board[1][1] == Player && Board[2][2] == Player)
+        return true;
+
+    if (Board[0][2] == Player && Board[1][1] == Player && Board[2][0] == Player)
+        return true;
+
+    return false;
+}
+
 int solution(vector<string> Board) 
 {
-    int Cnt_O = 0, Cnt_X = 0;
-    bool Win_O = false, Win_X = false;
-
-    vector<string> H(3, "");
+    int oCnt = 0, xCnt = 0;
     for (const auto& Str : Board)
     {
-        Cnt_O += count(Str.begin(), Str.end(), 'O');
-        Cnt_X += count(Str.begin(), Str.end(), 'X');
-
-        if ("OOO" == Str)
-            Win_O = true;
-
-        if ("XXX" == Str)
-            Win_X = true;
-
-        H[0] += Str[0];
-        H[1] += Str[1];
-        H[2] += Str[2];
+        oCnt += count(Str.begin(), Str.end(), 'O');
+        xCnt += count(Str.begin(), Str.end(), 'X');
     }
 
-    for (auto& Str : H)
-    {
-        if ("OOO" == Str)
-            Win_O = true;
+    bool oWin = WinCheck(Board, 'O');
+    bool xWin = WinCheck(Board, 'X');
 
-        if ("XXX" == Str)
-            Win_X = true;
-    }
-
-    string Dia1 = "", Dia2 = "";
-    for (int i = 0; i < 3; ++i)
-    {
-        Dia1 += Board[i][i];
-        Dia2 += Board[i][2 - i];
-    }
-
-    if ("OOO" == Dia1)
-        Win_O = true;
-
-    if ("XXX" == Dia1)
-        Win_X = true;
-
-    if ("OOO" == Dia2)
-        Win_O = true;
-
-    if ("XXX" == Dia2)
-        Win_X = true;
-
-    if (Cnt_O < Cnt_X || Cnt_O > Cnt_X + 1)
+    if (oWin && xWin)
         return 0;
 
-    if (Win_O && Win_X)
+    if (oCnt < xCnt || oCnt > xCnt + 1)
         return 0;
 
-    if (Win_O && Cnt_O != Cnt_X + 1)
+    if (oWin && oCnt != xCnt + 1)
         return 0;
 
-    if (Win_X && Cnt_O != Cnt_X)
+    if (xWin && oCnt != xCnt)
         return 0;
 
     return 1;
