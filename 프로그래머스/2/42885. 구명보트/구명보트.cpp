@@ -11,15 +11,10 @@ int solution(vector<int> People, int Limit)
     int Left = 0, Right = People.size() - 1;
     while (Left <= Right)
     {
-        if (Limit < People[Left] + People[Right])
-            --Right;
-        else
-        {
+        if (Limit >= People[Left] + People[Right])
             ++Left;
-            --Right;
-        }
         
-        ++Result;
+        --Right; ++Result;
     }
 
     return Result;
