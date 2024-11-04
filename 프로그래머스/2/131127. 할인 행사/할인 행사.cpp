@@ -7,39 +7,26 @@ using namespace std;
 int solution(vector<string> Want, vector<int> Number, vector<string> Discount) 
 {
     unordered_map<string, int> Cnt;
-    for (int i = 0; i < static_cast<int>(Want.size()); ++i)
-        Cnt[Want[i]] = Number[i];
-    
-    int WantCnt = Cnt.size();
-    for (int i = 0; i < 10; ++i)
+    for (int i = 0; i < 9; ++i)
+        ++Cnt[Discount[i]];
+
+    int Answer = 0;   
+    for (int i = 9; i < static_cast<int>(Discount.size()); ++i)
     {
-        if(Cnt.end() != Cnt.find(Discount[i]))
+        bool bFlag = true;
+        ++Cnt[Discount[i]];
+        for (int j = 0; j < static_cast<int>(Want.size()); ++j)
         {
-            --Cnt[Discount[i]];
-            if (0 == Cnt[Discount[i]])
-                --WantCnt;
-        }
-    }
-    
-    int Answer = (0 == WantCnt);
-    for (int i = 10; i < static_cast<int>(Discount.size()); ++i)
-    {
-        if (Cnt.end() != Cnt.find(Discount[i]))
-        {
-            --Cnt[Discount[i]];
-            if (0 == Cnt[Discount[i]])
-                --WantCnt;
+            if (Cnt[Want[j]] < Number[j])
+            {
+                bFlag = false;
+                break;
+            }
         }
         
-        if (Cnt.end() != Cnt.find(Discount[i - 10]))
-        {
-            ++Cnt[Discount[i - 10]];
-            if (1 == Cnt[Discount[i - 10]])
-                ++WantCnt;
-        }
-        
-        Answer += (0 == WantCnt);
+        Answer += bFlag;
+        --Cnt[Discount[i - 9]];
     }
-    
+ 
     return Answer;
 }
