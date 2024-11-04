@@ -1,16 +1,13 @@
-#include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
-vector<int> solution(int N, long long Left, long long Right) 
+vector<int> solution(int N, long long Left, long long Right)
 {
-    vector<int> Answer(Right - Left + 1, 0);
-    for (int i = 0; i <= Right - Left; ++i)
-    {
-        int Row = (Left + i) / N, Col = (Left + i) % N;
-        Row >= Col ? Answer[i] = Row + 1 : Answer[i] = Col + 1;
-    }
-    
+    vector<int> Answer; Answer.reserve(Right - Left + 1);
+    for (long long i = Left; i <= Right; ++i)
+        Answer.push_back(max(i / N, i % N) + 1);
+
     return Answer;
 }
