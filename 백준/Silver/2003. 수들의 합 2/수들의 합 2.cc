@@ -1,36 +1,31 @@
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
-int main() {
+int main()
+{
     ios_base::sync_with_stdio(0);
-    cin.tie(0);
+    cin.tie(0); cout.tie(0);
 
-    int N, M;
-    cin >> N >> M;
-    
-    vector<int> nums(N);
-    for (int i = 0; i < N; i++) {
-        cin >> nums[i];
+    int N = 0, M = 0; cin >> N >> M;
+    vector<int> Nums(N, 0);
+    for (int i = 0; i < N; i++)
+        cin >> Nums[i];
+
+    int Left = 0, Right = 0;
+    int Answer = 0, Sum = 0;
+    while (Right < N)
+    {
+        Sum += Nums[Right];
+
+        while (M < Sum && Left <= Right)
+            Sum -= Nums[Left++];
+
+        Answer += (M == Sum);
+        ++Right;
     }
 
-    int left = 0, right = 0;
-    int currentSum = 0, count = 0;
-
-    while (right < N) {
-        currentSum += nums[right];
-        
-        while (currentSum > M && left <= right) {
-            currentSum -= nums[left++];
-        }
-
-        if (currentSum == M) {
-            count++;
-        }
-
-        right++;
-    }
-
-    cout << count << "\n";
+    cout << Answer;
     return 0;
 }
