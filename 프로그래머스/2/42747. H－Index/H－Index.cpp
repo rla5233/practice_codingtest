@@ -7,12 +7,11 @@ int solution(vector<int> Citations)
 {
     sort(Citations.rbegin(), Citations.rend());
     
-    int Answer = 0, Cnt = 0;
+    int Answer = 0;
     for (int i = 0; i < static_cast<int>(Citations.size()); ++i)
     {
-        ++Cnt;
-        if (Citations[i] >= Cnt)
-            Answer = Cnt;
+        if (Citations[i] >= i + 1)
+            Answer = i + 1;
     }
     
     return Answer;
