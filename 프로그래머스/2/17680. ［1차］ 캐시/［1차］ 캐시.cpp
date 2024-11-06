@@ -5,11 +5,6 @@
 
 using namespace std;
 
-string ToUpperStr(const string& str)
-{
-    
-}
-
 int solution(int cacheSize, vector<string> cities) 
 {
     list<string> LRU;
