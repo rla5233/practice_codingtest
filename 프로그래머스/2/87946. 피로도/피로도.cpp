@@ -5,19 +5,14 @@ using namespace std;
 
 void FindFunc(const vector<vector<int>>& _Dungeons, vector<bool>& _bUsed, int _K, int _Count, int& _Answer)
 {
-    if (_Count > _Answer)
-        _Answer = _Count;
-
-    if (_Count == _Dungeons.size())
-        return;
+    _Answer = max(_Count, _Answer);
 
     for (int i = 0; i < static_cast<int>(_Dungeons.size()); ++i)
     {
-        if (!_bUsed[i])
+        if (!_bUsed[i] && _K >= _Dungeons[i].front())
         {
             _bUsed[i] = true;
-            if (_K >= _Dungeons[i].front())
-                FindFunc(_Dungeons, _bUsed, _K - _Dungeons[i].back(), _Count + 1, _Answer);
+            FindFunc(_Dungeons, _bUsed, _K - _Dungeons[i].back(), _Count + 1, _Answer);
             _bUsed[i] = false;
         }
     }
