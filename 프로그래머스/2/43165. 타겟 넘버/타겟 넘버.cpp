@@ -3,16 +3,16 @@
 
 using namespace std;
 
-void DFS(const vector<int>& _Numbers, const int _Target, int& _Answer, int _Sum, int _Idx)
+void DFS(const vector<int>& _Numbers, const int _Target, int& _Answer, int _Depth, int _Sum)
 {
-    if (_Numbers.size() == _Idx)
+    if (_Numbers.size() == _Depth)
     {
         _Answer += (_Target == _Sum);
         return;
     }
     
-    DFS(_Numbers, _Target, _Answer, _Sum + _Numbers[_Idx], _Idx + 1);
-    DFS(_Numbers, _Target, _Answer, _Sum - _Numbers[_Idx], _Idx + 1);
+    DFS(_Numbers, _Target, _Answer, _Depth + 1, _Sum + _Numbers[_Depth]);
+    DFS(_Numbers, _Target, _Answer, _Depth + 1, _Sum - _Numbers[_Depth]);
 }
 
 int solution(vector<int> _Numbers, int _Target) 
