@@ -6,11 +6,11 @@
 
 using namespace std;
 
-const char vowel[5] = { 'A', 'E', 'I', 'O', 'U' };
+const string vowel = "AEIOU";
 
 void MakeDic(set<string>& dic, string word, int k)
 {
-    if (5 == k)
+    if (vowel.size() == k)
     {   
         if (!word.empty())
             dic.insert(word);
@@ -20,7 +20,7 @@ void MakeDic(set<string>& dic, string word, int k)
     
     MakeDic(dic, word, k + 1);
     
-    for (int i = 0; i < 5; ++i)
+    for (int i = 0; i < static_cast<int>(vowel.size()); ++i)
         MakeDic(dic, word + vowel[i], k + 1);
 }
 
