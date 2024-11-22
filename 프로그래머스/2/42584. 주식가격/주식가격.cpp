@@ -9,22 +9,22 @@ vector<int> solution(vector<int> prices)
     int size = static_cast<int>(prices.size());
     vector<int> answer(size, 0);
 
-    stack<pair<int, int>> s;
+    stack<int> s;
     for (int i = 0; i < size; ++i)
     {
-        while (!s.empty() && prices[i] < s.top().first)
+        while (!s.empty() && prices[i] < prices[s.top()])
         {
-            answer[s.top().second] = i - s.top().second;
+            answer[s.top()] = i - s.top();
             s.pop();
         }
 
-        s.push({ prices[i], i });
+        s.push(i);
     }
     
     --size;
     while (!s.empty())
     {
-        answer[s.top().second] = size - s.top().second;
+        answer[s.top()] = size - s.top();
         s.pop();
     }
 
