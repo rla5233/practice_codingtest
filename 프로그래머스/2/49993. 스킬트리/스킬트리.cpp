@@ -17,13 +17,11 @@ int solution(string skill, vector<string> skill_trees)
         {
             if (bskill[c - 'A'])
             {
-                if (skill[idx] != c)
+                if (skill[idx++] != c)
                 {
                     --answer;
                     break;
                 }
-                
-                ++idx;
             }
         }
     }
