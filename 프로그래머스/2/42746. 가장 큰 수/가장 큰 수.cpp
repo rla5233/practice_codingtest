@@ -17,13 +17,9 @@ string solution(vector<int> numbers)
     
     stable_sort(temp.begin(), temp.end(), cmp);
     
-    if ("0" == temp.front())
-        return "0";
-    
     string answer = "";
     for (const string& num : temp)
          answer += num;
-       
     
-    return answer;
+    return '0' == answer.front() ? "0" : answer;
 }
