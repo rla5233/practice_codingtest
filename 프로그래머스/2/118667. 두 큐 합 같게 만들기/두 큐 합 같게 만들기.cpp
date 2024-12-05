@@ -18,7 +18,7 @@ int solution(vector<int> queue1, vector<int> queue2)
     size *= 3;
     while (sumL != sumR)
     {
-        if (q1.empty() || q2.empty() || size <= answer)
+        if (size <= answer)
             return -1;
 
         if (sumL > sumR)
