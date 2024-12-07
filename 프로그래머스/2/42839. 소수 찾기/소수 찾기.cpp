@@ -10,14 +10,10 @@ unordered_set<int> dupCheck;
 
 bool isprime(int num)
 {
-    if (1 >= num)
-        return false;
+    if (1 >= num) return false;
     
     for (int i = 2; i * i <= num; ++i)
-    {
-        if (0 == num % i)
-            return false;
-    }
+        if (0 == num % i) return false;
     
     return true;
 }
@@ -28,11 +24,8 @@ void findfunc(const string& numbers, int cnt, int& ans)
     {
         int num = stoi(temp);
         if (dupCheck.end() == dupCheck.find(num) && isprime(num))
-        {
-            dupCheck.insert(num);
-            ++ans;
-        }
-        
+            dupCheck.insert(num), ++ans; 
+
         return;
     }
     
