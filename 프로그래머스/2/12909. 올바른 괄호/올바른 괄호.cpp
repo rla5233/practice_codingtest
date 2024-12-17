@@ -1,13 +1,13 @@
 #include <string>
 #include <stack>
 
-bool solution(std::string S)
+bool solution(std::string s)
 {
     std::stack<char> Stack;
-    for (char C : S)
+    for (char c : s)
     {
-        if ('(' == C)
-            Stack.push(C);
+        if ('(' == c)
+            Stack.push(c);
         else
         {
             if (Stack.empty())
