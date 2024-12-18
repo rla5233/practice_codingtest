@@ -7,10 +7,7 @@ int solution(int N)
     while (0 != N)
     {
         if (N & 1)
-        {
-            --N;
-            ++Result;
-        }
+            --N, ++Result;
         else
             N >>= 1;
     }
